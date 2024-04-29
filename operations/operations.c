@@ -1,10 +1,22 @@
-#include <math.h>
-
 #include "operations.h"
 
 uint calculate_track(uint sector, uint sectors_per_track) {
 
 	return sector / sectors_per_track;
+}
+
+Request* create_requests(uint sectors[], uint sectors_amount, uint sectors_per_track) {
+
+	Request requests[sectors_amount];
+
+	for (uint i = 0; i < sectors_amount; i++) {
+
+		requests[i].sector = sectors[i];
+		requests[i].track = calculate_track(sectors[i], sectors_per_track);
+		requests[i].served = False;
+	}
+
+	return requests;
 }
 
 double calculate_seek_time(uint current_track, uint target_track, double seek_time) {
