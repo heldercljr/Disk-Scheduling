@@ -1,8 +1,9 @@
-#ifndef DISK_STRUCTURES_H
-#define DISK_STRUCTURES_H
+#ifndef DISK_H
+#define DISK_H
 
-typedef unsigned int uint;
+#include "uint.h"
 
+// Estrutura de um disco
 typedef struct {
 	uint sector_size;			// tamanho de cada setor em bytes
 	uint tracks;				// número de trilhas do disco
@@ -11,10 +12,5 @@ typedef struct {
 	double rotation_time;		// tempo médio de rotação em milissegundos por volta completa
 	uint transfer_rate;			// taxa de transferência em bytes por segundo
 } Disk;
-
-typedef struct {
-	uint track;					// número da trilha
-	uint sector;				// número do setor
-} Request;
 
 #endif
