@@ -7,6 +7,6 @@
 #include "../../structures/request.h"
 
 // Algoritmo de escalonamento SSTF (Shortest Seek Time First)
-double sstf(uint* sectors, uint current_sector, Disk disk);
+double sstf(uint* sectors, uint amount, uint current_sector, Disk disk);
 
 #endif

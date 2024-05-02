@@ -6,8 +6,8 @@
 
 // Estrutura de uma requisição
 typedef struct {
-	uint track;					// número da trilha
 	uint sector;				// número do setor
+	uint track;					// número da trilha
 	boolean served;				// flag de atendimento
 } Request;
 

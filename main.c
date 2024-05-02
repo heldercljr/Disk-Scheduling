@@ -13,11 +13,11 @@ int main() {
 		.transfer_rate = 1000000 // bytes/s (1 MB/s no exemplo)
 	};
 
-	uint sectors[] = {9, 85, 419, 8573, 312, 25, 17422, 17590, 37, 8599};
+	uint sectors[] = {419, 8573, 312, 17422, 17590, 37, 8599, 92};
 
 	uint current_sector = 100;
 
-	double total_time = sstf(sectors, current_sector, disk);
+	double total_time = sstf(sectors, 8, current_sector, disk);
 
 	printf("Tempo total: %.2f ms\n", total_time);
 
