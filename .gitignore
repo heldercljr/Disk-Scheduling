@@ -1,3 +1,6 @@
+# Project relative
+.vscode/
+
 # Prerequisites
 *.d
 

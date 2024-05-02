@@ -1,28 +1,46 @@
 #include "sstf.h"
 
-void sstf(uint sectors[], uint current_sector, uint sectors_per_track, uint tracks) {
+double sstf(uint* sectors, uint current_sector, Disk disk) {
 
-	uint amount = ARRAY_SIZE(sectors);
+	uint amount = sizeof(sectors) / sizeof((sectors)[0]);
 
-	Request requests[] = create_requests(sectors, amount, sectors_per_track);
+	Request* requests = create_requests(sectors, amount, disk.sectors_per_track);
 
-	uint current_track = calculate_track(current_sector, sectors_per_track);
+	uint current_track = calculate_track(current_sector, disk.sectors_per_track);
 
-	uint minimum_difference = tracks;
+	uint minimum_difference = disk.tracks;
 
 	uint minimum_index = 0;
 
-	for (uint index = 0; index < amount; index++) {
+	double total_time = 0.0;
 
-		uint current_difference = abs(current_track - requests[index].track);
+	for (uint step = 0; step < amount; step++) {
 
-		if (current_difference < minimum_difference) {
+		for (uint index = 0; index < amount; index++) {
 
-			minimum_difference = current_difference;
+			if (requests[index].served == False) {
 
-			minimum_index = index;
+				uint current_difference = abs(current_track - requests[index].track);
+
+				if (current_difference < minimum_difference) {
+
+					minimum_difference = current_difference;
+
+					minimum_index = index;
+				}
+			}
+
+			current_track = requests[minimum_index].track;
 		}
+
+		total_time += calculate_seek_time(current_track, requests[minimum_index].track, disk.seek_time);
+		total_time += calculate_rotation_time(current_sector, requests[minimum_index].sector, disk.sectors_per_track, disk.rotation_time);
+		total_time += calculate_transfer_time(1, disk.sector_size, disk.transfer_rate);
+
+		requests[minimum_index].served = True;
 	}
 
-	// To do: implementar o resto do algoritmo
+	free(requests);
+
+	return total_time;
 }

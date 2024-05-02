@@ -5,9 +5,9 @@ uint calculate_track(uint sector, uint sectors_per_track) {
 	return sector / sectors_per_track;
 }
 
-Request* create_requests(uint sectors[], uint sectors_amount, uint sectors_per_track) {
+Request* create_requests(uint* sectors, uint sectors_amount, uint sectors_per_track) {
 
-	Request requests[sectors_amount];
+	Request* requests = (Request*) malloc(sectors_amount * sizeof(Request));
 
 	for (uint i = 0; i < sectors_amount; i++) {
 

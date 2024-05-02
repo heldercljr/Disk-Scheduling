@@ -13,15 +13,15 @@
 uint calculate_track(uint sector, uint sectors_per_track);
 
 // Cria um array de requisições com base em um array de setores e a quantidade de setores por trilha
-Request* create_requests(uint sectors[], uint sectors_amount, uint sectors_per_track);
+Request* create_requests(uint* sectors, uint sectors_amount, uint sectors_per_track);
 
 // Calcula o tempo de seek em milissegundos entre duas trilhas
-double find_seek_time(uint current_track, uint target_track, double seek_time);
+double calculate_seek_time(uint current_track, uint target_track, double seek_time);
 
 // Calcula o tempo de rotação em milissegundos entre dois setores
-double find_rotation_time(uint current_sector, uint target_sector, uint sectors_per_track, double rotation_time);
+double calculate_rotation_time(uint current_sector, uint target_sector, uint sectors_per_track, double rotation_time);
 
 // Calcula o tempo de transferência em milissegundos de uma determinada quantidade de setores
-double find_transfer_time(uint sectors, uint sector_size, uint transfer_rate);
+double calculate_transfer_time(uint sectors, uint sector_size, uint transfer_rate);
 
 #endif
