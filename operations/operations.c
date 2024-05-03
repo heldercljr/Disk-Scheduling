@@ -33,5 +33,5 @@ double calculate_rotation_time(uint current_sector, uint target_sector, uint sec
 
 double calculate_transfer_time(uint sectors_amount, uint sector_size, uint transfer_rate) {
 
-	return ((double) (sectors_amount * sector_size * 1000) / transfer_rate);
+	return ((double) (sectors_amount * sector_size) / transfer_rate * 1000);
 }
