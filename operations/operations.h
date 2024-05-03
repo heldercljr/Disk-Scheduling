@@ -5,7 +5,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "../structures/array.h"
 #include "../structures/disk.h"
 #include "../structures/request.h"
 #include "../structures/uint.h"
