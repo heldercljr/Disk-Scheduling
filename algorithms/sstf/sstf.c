@@ -1,45 +1,43 @@
 #include "sstf.h"
 
-double sstf(uint* sectors, uint amount, uint current_sector, Disk disk) {
+double sstf(uint* sectors, uint sectors_amount, uint current_sector, Disk disk) {
 
-	Request* requests = create_requests(sectors, amount, disk.sectors_per_track);
+	Request* requests = create_requests(sectors, sectors_amount, disk.sectors_per_track);
 
 	uint current_track = calculate_track(current_sector, disk.sectors_per_track);
 
-	double total_time = 0.0;
+	double total_seek_time = 0.0;
 
-	for (uint step = 0; step < amount; step++) {
+	double total_rotation_time = 0.0;
+
+	double total_transfer_time = 0.0;
+
+	for (uint step = 0; step < sectors_amount; step++) {
 
 		uint minimum_index = 0;
 
 		uint minimum_difference = disk.tracks;
 
-		for (uint index = 0; index < amount; index++) {
+		for (uint index = 0; index < sectors_amount; index++) {
 
-			if (!requests[index].served) {
+			Request request = requests[index];
 
-				uint current_difference = abs(current_track - requests[index].track);
-				printf("Indice: %d\n", index);
-				printf("Diferenca minima: %d\n", minimum_difference);
-				printf("Trilha atual: %d\n", current_track);
-				printf("Trilha solicitada: %d\n", requests[index].track);
-				printf("Diferenca: %d\n\n", current_difference);
+			if (!request.served) {
 
-				if (current_difference < minimum_difference) {
+				uint tracks_difference = abs(current_track - request.track);
 
-					minimum_difference = current_difference;
+				if (tracks_difference < minimum_difference) {
+
+					minimum_difference = tracks_difference;
 
 					minimum_index = index;
 				}
 			}
 		}
 
-		total_time += calculate_seek_time(current_track, requests[minimum_index].track, disk.seek_time);
-		// printf("Tempo de seek: %.2f ms\n", total_time);
-		total_time += calculate_rotation_time(current_sector, requests[minimum_index].sector, disk.sectors_per_track, disk.rotation_time);
-		// printf("Tempo de rotacao: %.2f ms\n", total_time);
-		total_time += calculate_transfer_time(1, disk.sector_size, disk.transfer_rate);
-		// printf("Tempo de transferencia: %.2f ms\n", total_time);
+		total_seek_time += calculate_seek_time(current_track, requests[minimum_index].track, disk.seek_time);
+		total_rotation_time += calculate_rotation_time(current_sector, requests[minimum_index].sector, disk.sectors_per_track, disk.rotation_time);
+		total_transfer_time += calculate_transfer_time(1, disk.sector_size, disk.transfer_rate);
 
 		current_track = requests[minimum_index].track;
 
@@ -48,5 +46,5 @@ double sstf(uint* sectors, uint amount, uint current_sector, Disk disk) {
 
 	free(requests);
 
-	return total_time;
+	return total_seek_time + total_rotation_time + total_transfer_time;
 }
