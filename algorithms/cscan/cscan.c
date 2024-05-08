@@ -1,5 +1,5 @@
 #include "cscan.h"
 
-void cscan(Request requests[], uint num_requests) {
+void cscan(uint* sectors, uint amount, uint current_sector, Disk disk) {
 	
 }

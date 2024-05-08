@@ -1,5 +1,5 @@
 #include "fscan.h"
 
-void fscan(Request requests[], uint num_requests) {
+void fscan(uint* sectors, uint amount, uint current_sector, Disk disk) {
 	
 }
