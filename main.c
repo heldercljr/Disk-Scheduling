@@ -36,6 +36,8 @@ int main() {
 
 	sstf(requests, current_request, REQUESTS_AMOUNT, disk, &log);
 
+	free(requests);
+
 	printf("Tempo total de seek: %.2f ms\n", log.total_seek_time);
 	printf("Tempo total de rotacao: %.2f ms\n", log.total_rotation_time);
 	printf("Tempo total de transferencia: %.2f ms\n", log.total_transfer_time);

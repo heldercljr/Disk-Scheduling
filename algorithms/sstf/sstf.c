@@ -38,7 +38,5 @@ void sstf(Request* requests, Request current_request, uint requests_amount, Disk
 		requests[minimum_index].served = True;
 	}
 
-	free(requests);
-
 	log->total_io_time = log->total_seek_time + log->total_rotation_time + log->total_transfer_time;
 }
