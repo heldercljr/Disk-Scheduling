@@ -13,11 +13,9 @@ void sstf(Request* requests, Request current_request, uint requests_amount, Disk
 
 		for (uint index = 0; index < requests_amount; index++) {
 
-			Request request = requests[index];
+			if (!requests[index].served) {
 
-			if (!request.served) {
-
-				uint tracks_difference = abs(current_track - request.track);
+				uint tracks_difference = abs(current_track - requests[index].track);
 
 				if (tracks_difference < minimum_difference) {
 
