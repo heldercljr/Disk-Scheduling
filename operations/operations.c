@@ -19,22 +19,6 @@ Request* create_requests(uint* sectors, uint requests_amount, uint sectors_per_t
 	return requests;
 }
 
-Log* create_logs(uint logs_amount) {
-
-	Log* logs = (Log*) malloc(logs_amount * sizeof(Log));
-
-	for (uint i = 0; i < logs_amount; i++) {
-
-		logs[i].requests_amount = 0;
-		logs[i].total_seek_time = 0;
-		logs[i].total_rotation_time = 0;
-		logs[i].total_transfer_time = 0;
-		logs[i].total_io_time = 0;
-	}
-
-	return logs;
-}
-
 double calculate_seek_time(uint current_track, uint target_track, double seek_time) {
 
 	return abs(target_track - current_track) * seek_time;

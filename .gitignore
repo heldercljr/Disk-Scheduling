@@ -1,6 +1,7 @@
 # Project relative
 .vscode/
 build/
+*.csv
 
 # Prerequisites
 *.d

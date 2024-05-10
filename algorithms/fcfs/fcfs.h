@@ -4,10 +4,9 @@
 #include "../../operations/operations.h"
 
 #include "../../structures/disk.h"
-#include "../../structures/log.h"
 #include "../../structures/request.h"
 
 // Algoritmo de escalonamento FCFS (First-Come, First Served)
-void fcfs(Request* requests, uint requests_amount, Request current_request, Disk disk, Log* log);
+void fcfs(Request* requests, uint requests_amount, Request current_request, Disk disk, FILE* report);
 
 #endif

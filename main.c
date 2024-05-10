@@ -29,20 +29,20 @@ int main() {
 	Request* random_requests = create_requests(random_numbers, REQUESTS_AMOUNT, disk.sectors_per_track);
 	Request* sequential_requests = create_requests(sequential_numbers, REQUESTS_AMOUNT, disk.sectors_per_track);
 
-	Log* logs = create_logs(LOGS_AMOUNT);
+	FILE *sequential_sstf_report = fopen("reports/report_sstf_sequential.csv", "w");
+	FILE *random_sstf_report = fopen("reports/report_sstf_random.csv", "w");
+	FILE *sequential_fcfs_report = fopen("reports/report_fcfs_sequential.csv", "w");
+	FILE *random_fcfs_report = fopen("reports/report_fcfs_random.csv", "w");
 
-	sstf(sequential_requests, REQUESTS_AMOUNT, current_request, disk, &logs[0]);
-	sstf(random_requests, REQUESTS_AMOUNT, current_request, disk, &logs[1]);
-	fcfs(sequential_requests, REQUESTS_AMOUNT, current_request, disk, &logs[2]);
-	fcfs(random_requests, REQUESTS_AMOUNT, current_request, disk, &logs[3]);
+	sstf(sequential_requests, REQUESTS_AMOUNT, current_request, disk, sequential_sstf_report);
+	sstf(random_requests, REQUESTS_AMOUNT, current_request, disk, random_sstf_report);
+	fcfs(sequential_requests, REQUESTS_AMOUNT, current_request, disk, sequential_fcfs_report);
+	fcfs(random_requests, REQUESTS_AMOUNT, current_request, disk, random_fcfs_report);
 
-	for (uint i = 0; i < LOGS_AMOUNT; i++) {
-
-		printf("Seek: %.2fms, ", logs[i].total_seek_time);
-		printf("Rotacao: %.2fms, ", logs[i].total_rotation_time);
-		printf("Transferencia: %.2fms, ", logs[i].total_transfer_time);
-		printf("Total: %.2fms\n", logs[i].total_io_time);
-	}
+	fclose(sequential_sstf_report);
+	fclose(random_sstf_report);
+	fclose(sequential_fcfs_report);
+	fclose(random_fcfs_report);
 
 	return 0;
 }
