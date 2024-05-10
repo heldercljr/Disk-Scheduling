@@ -8,6 +8,6 @@
 #include "../../structures/request.h"
 
 // Algoritmo de escalonamento FCFS (First-Come, First Served)
-void fcfs(Request* requests, Request current_request, uint requests_amount, Disk disk, Log* log);
+void fcfs(Request* requests, uint requests_amount, Request current_request, Disk disk, Log* log);
 
 #endif

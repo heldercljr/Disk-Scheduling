@@ -5,11 +5,11 @@ uint calculate_track(uint sector, uint sectors_per_track) {
 	return sector / sectors_per_track;
 }
 
-Request* create_requests(uint* sectors, uint sectors_amount, uint sectors_per_track) {
+Request* create_requests(uint* sectors, uint requests_amount, uint sectors_per_track) {
 
-	Request* requests = (Request*) malloc(sectors_amount * sizeof(Request));
+	Request* requests = (Request*) malloc(requests_amount * sizeof(Request));
 
-	for (uint i = 0; i < sectors_amount; i++) {
+	for (uint i = 0; i < requests_amount; i++) {
 
 		requests[i].sector = sectors[i];
 		requests[i].track = calculate_track(sectors[i], sectors_per_track);
@@ -17,6 +17,22 @@ Request* create_requests(uint* sectors, uint sectors_amount, uint sectors_per_tr
 	}
 
 	return requests;
+}
+
+Log* create_logs(uint logs_amount) {
+
+	Log* logs = (Log*) malloc(logs_amount * sizeof(Log));
+
+	for (uint i = 0; i < logs_amount; i++) {
+
+		logs[i].requests_amount = 0;
+		logs[i].total_seek_time = 0;
+		logs[i].total_rotation_time = 0;
+		logs[i].total_transfer_time = 0;
+		logs[i].total_io_time = 0;
+	}
+
+	return logs;
 }
 
 double calculate_seek_time(uint current_track, uint target_track, double seek_time) {

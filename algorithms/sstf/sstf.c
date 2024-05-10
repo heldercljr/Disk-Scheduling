@@ -1,6 +1,6 @@
 #include "sstf.h"
 
-void sstf(Request* requests, Request current_request, uint requests_amount, Disk disk, Log* log) {
+void sstf(Request* requests, uint requests_amount, Request current_request, Disk disk, Log* log) {
 
 	uint current_sector = current_request.sector;
 	uint current_track = current_request.track;
@@ -36,5 +36,6 @@ void sstf(Request* requests, Request current_request, uint requests_amount, Disk
 		requests[minimum_index].served = True;
 	}
 
+	log->requests_amount = requests_amount;
 	log->total_io_time = log->total_seek_time + log->total_rotation_time + log->total_transfer_time;
 }

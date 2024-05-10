@@ -4,7 +4,7 @@
 #include "uint.h"
 
 typedef struct {
-	uint number_of_requests;
+	uint requests_amount;
 	double total_seek_time;
 	double total_rotation_time;
 	double total_transfer_time;
