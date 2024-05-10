@@ -10,7 +10,7 @@ void sstf(Request* requests, uint requests_amount, Request current_request, Disk
 	double total_transfer_time = 0;
 	double total_io_time;
 
-	fprintf(report, "sector,track,seek,rotation,transfer,total\n");
+	fprintf(report, "index,sector,track,seek,rotation,transfer,total\n");
 
 	for (uint step = 0; step < requests_amount; step++) {
 
@@ -38,7 +38,7 @@ void sstf(Request* requests, uint requests_amount, Request current_request, Disk
 		total_transfer_time += calculate_transfer_time(1, disk.sector_size, disk.transfer_rate);
 		total_io_time = total_seek_time + total_rotation_time + total_transfer_time;
 
-		fprintf(report, "%u,%u,%.3f,%.3f,%.3f,%.3f\n",current_sector, current_track, total_seek_time, total_rotation_time, total_transfer_time,total_io_time);
+		fprintf(report, "%u,%u,%u,%.3f,%.3f,%.3f,%.3f\n",step, current_sector, current_track, total_seek_time, total_rotation_time, total_transfer_time,total_io_time);
 
 		current_sector = requests[minimum_index].sector;
 		current_track = requests[minimum_index].track;
