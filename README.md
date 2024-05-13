@@ -6,7 +6,7 @@ Repositório que tem por objetivo simular o acesso de blocos/setores utilizando 
 + **Shortest Seek Time First** - [**SSTF**](/algorithms/sstf/sstf.c)
 
 ## Execução
-Para compilar o projeto, entre na pasta raíz do repositório e digitar o comando (usando o GCC):
+Para compilar o projeto, entre na pasta raíz do repositório e digite o comando (usando o GCC):
 
 **`gcc main.c numbers.c algorithms/sstf/sstf.c algorithms/fcfs/fcfs.c operations/operations.c -o main`**
 
