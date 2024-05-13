@@ -13,4 +13,16 @@ Para compilar o projeto, entre na pasta raíz do repositório e digite o comando
 Em seguida o execute com o comando **`./main`** em sistemas *Linux* ou **`main.exe`** no *Windows*.
 
 ## Resultados
-Para conferir os resultados, basta buscar os arquivos **`.csv`** na pasta [**_reports_**](/reports/).
+Para conferir os resultados, basta analisar os arquivos **`.csv`** na pasta [**_reports_**](/reports/).
+
+Os arquivos **`.csv`** possuem as seguintes colunas:
+
+| Item | Descrição |
+| :----: | :---- |
+| index | índice da iteração |
+| sector | setor da iteração atual |
+| track | trilha da iteração atual |
+| seek | tempo de seek |
+| rotation | tempo de rotação |
+| transfer | tempo de transferência |
+| total | seek + rotation + transfer |
