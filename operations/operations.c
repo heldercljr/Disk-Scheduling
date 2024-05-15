@@ -19,6 +19,16 @@ Request* create_requests(uint* sectors, uint requests_amount, uint sectors_per_t
 	return requests;
 }
 
+Report* create_report(uint amount) {
+
+	Report* report = (Report*) malloc(sizeof(Report));
+
+	report->logs = (Log*) malloc(amount * sizeof(Log));
+	report->amount = amount;
+
+	return report;
+}
+
 double calculate_seek_time(uint current_track, uint target_track, double seek_time) {
 
 	return abs(target_track - current_track) * seek_time;

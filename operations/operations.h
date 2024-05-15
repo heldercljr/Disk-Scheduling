@@ -6,6 +6,7 @@
 #include <stdlib.h>
 
 #include "../structures/disk.h"
+#include "../structures/report.h"
 #include "../structures/request.h"
 #include "../structures/uint.h"
 
@@ -14,6 +15,9 @@ uint calculate_track(uint sector, uint sectors_per_track);
 
 // Cria um array de requisições com base em um array de setores e a quantidade de setores por trilha
 Request* create_requests(uint* sectors, uint requests_amount, uint sectors_per_track);
+
+// Cria um relatório com base na quantidade de requisições
+Report* create_report(uint amount);
 
 // Calcula o tempo de seek em milissegundos entre duas trilhas
 double calculate_seek_time(uint current_track, uint target_track, double seek_time);

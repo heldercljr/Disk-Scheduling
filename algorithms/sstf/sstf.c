@@ -1,13 +1,6 @@
 #include "sstf.h"
 
-void sstf(Request* requests, uint requests_amount, Request current_request, Disk disk, FILE* report) {
-
-	double total_seek_time = 0;
-	double total_rotation_time = 0;
-	double total_transfer_time = 0;
-	double total_io_time;
-
-	fprintf(report, "index,sector,track,seek,rotation,transfer,total\n");
+void sstf(Request* requests, uint requests_amount, Request current_request, Disk disk, Report* report) {
 
 	for (uint step = 0; step < requests_amount; step++) {
 
@@ -30,12 +23,14 @@ void sstf(Request* requests, uint requests_amount, Request current_request, Disk
 			}
 		}
 
-		total_seek_time += calculate_seek_time(current_request.track, requests[minimum_index].track, disk.seek_time);
-		total_rotation_time += calculate_rotation_time(current_request.sector, requests[minimum_index].sector, disk.sectors_per_track, disk.rotation_time);
-		total_transfer_time += calculate_transfer_time(1, disk.sector_size, disk.transfer_rate);
-		total_io_time = total_seek_time + total_rotation_time + total_transfer_time;
+		Log* log = &report->logs[step];
 
-		fprintf(report, "%u,%u,%u,%.3f,%.3f,%.3f,%.3f\n",step, current_request.sector, current_request.track, total_seek_time, total_rotation_time, total_transfer_time,total_io_time);
+		log->sector = requests[minimum_index].sector;
+		log->track = requests[minimum_index].track;
+		log->seek_time = calculate_seek_time(current_request.track, requests[minimum_index].track, disk.seek_time);
+		log->rotation_time = calculate_rotation_time(current_request.sector, requests[minimum_index].sector, disk.sectors_per_track, disk.rotation_time);
+		log->transfer_time = calculate_transfer_time(1, disk.sector_size, disk.transfer_rate);
+		log->io_time = log->seek_time + log->rotation_time + log->transfer_time;
 
 		current_request.sector = requests[minimum_index].sector;
 		current_request.track = requests[minimum_index].track;
