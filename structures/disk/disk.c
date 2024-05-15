@@ -1,32 +1,8 @@
-#include "operations.h"
+#include "disk.h"
 
 uint calculate_track(uint sector, uint sectors_per_track) {
 
 	return sector / sectors_per_track;
-}
-
-Request* create_requests(uint* sectors, uint requests_amount, uint sectors_per_track) {
-
-	Request* requests = (Request*) malloc(requests_amount * sizeof(Request));
-
-	for (uint i = 0; i < requests_amount; i++) {
-
-		requests[i].sector = sectors[i];
-		requests[i].track = calculate_track(sectors[i], sectors_per_track);
-		requests[i].served = False;
-	}
-
-	return requests;
-}
-
-Report* create_report(uint amount) {
-
-	Report* report = (Report*) malloc(sizeof(Report));
-
-	report->logs = (Log*) malloc(amount * sizeof(Log));
-	report->amount = amount;
-
-	return report;
 }
 
 double calculate_seek_time(uint current_track, uint target_track, double seek_time) {

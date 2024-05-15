@@ -1,23 +1,22 @@
-#ifndef OPERATIONS_H
-#define OPERATIONS_H
+#ifndef DISK_H
+#define DISK_H
 
 #include <math.h>
-#include <stdio.h>
-#include <stdlib.h>
 
-#include "../structures/disk.h"
-#include "../structures/report.h"
-#include "../structures/request.h"
-#include "../structures/uint.h"
+#include "../uint.h"
+
+// Estrutura de um disco
+typedef struct {
+	uint sector_size;			// tamanho de cada setor em bytes
+	uint tracks;				// número de trilhas do disco
+	uint sectors_per_track;		// número de setores em cada trilha
+	double seek_time;			// tempo médio de seek em milissegundos entre trilhas adjacentes
+	double rotation_time;		// tempo médio de rotação em milissegundos por volta completa
+	uint transfer_rate;			// taxa de transferência em bytes por segundo
+} Disk;
 
 // Calcula a trilha de um setor com base na quantidade de setores por trilha
 uint calculate_track(uint sector, uint sectors_per_track);
-
-// Cria um array de requisições com base em um array de setores e a quantidade de setores por trilha
-Request* create_requests(uint* sectors, uint requests_amount, uint sectors_per_track);
-
-// Cria um relatório com base na quantidade de requisições
-Report* create_report(uint amount);
 
 // Calcula o tempo de seek em milissegundos entre duas trilhas
 double calculate_seek_time(uint current_track, uint target_track, double seek_time);
