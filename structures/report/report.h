@@ -23,6 +23,7 @@ typedef struct {
 // Cria um relatório com base na quantidade de requisições
 Report* create_report(uint amount);
 
+// Escreve um relatório em um arquivo
 void write_report(Report* report, char* filename);
 
 #endif
