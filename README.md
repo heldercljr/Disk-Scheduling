@@ -9,7 +9,7 @@ Repositório que tem por objetivo simular o acesso a blocos/setores em discos r�
 Para compilar o projeto, entre na pasta raíz do repositório e digite o comando (usando o GCC):
 
 ```
-gcc main.c numbers.c algorithms/sstf/sstf.c algorithms/fcfs/fcfs.c operations/operations.c -o main
+gcc main.c numbers.c algorithms/fcfs/fcfs.c algorithms/sstf/sstf.c structures/disk/disk.c structures/report/report.c structures/request/request.c -o main
 ```
 
 Em seguida o execute com o comando **`./main`** em sistemas *Linux* ou **`main.exe`** no *Windows*.

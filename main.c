@@ -39,5 +39,10 @@ int main() {
 	fcfs(sequential_requests, REQUESTS_AMOUNT, current_request, disk, sequential_fcfs_report);
 	fcfs(random_requests, REQUESTS_AMOUNT, current_request, disk, random_fcfs_report);
 
+	write_report(sequential_sstf_report, "reports/sequential_sstf_report.csv");
+	write_report(random_sstf_report, "reports/random_sstf_report.csv");
+	write_report(sequential_fcfs_report, "reports/sequential_fcfs_report.csv");
+	write_report(random_fcfs_report, "reports/random_fcfs_report.csv");
+
 	return 0;
 }

@@ -1,6 +1,7 @@
 #ifndef REPORT_H
 #define REPORT_H
 
+#include <stdio.h>
 #include <stdlib.h>
 
 #include "../uint.h"
@@ -21,5 +22,7 @@ typedef struct {
 
 // Cria um relatório com base na quantidade de requisições
 Report* create_report(uint amount);
+
+void write_report(Report* report, char* filename);
 
 #endif
