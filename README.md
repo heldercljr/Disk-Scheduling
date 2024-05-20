@@ -28,3 +28,6 @@ Os arquivos **`.csv`** possuem as seguintes colunas:
 | *rotation* | tempo de rotação |
 | *transfer* | tempo de transferência |
 | *total* | seek + rotation + transfer |
+
+## Próximos passos
+Implementar mais algoritmos de escalonamento, tais quais o CSCAN e o FSCAN.
