@@ -15,6 +15,9 @@ typedef struct {
 	uint transfer_rate;			// taxa de transferência em bytes por segundo
 } Disk;
 
+// Cria um disco com base em suas características
+Disk create_disk(uint sector_size, uint tracks, uint sectors_per_track, double seek_time, double rotation_time, uint transfer_rate);
+
 // Calcula a trilha de um setor com base na quantidade de setores por trilha
 uint calculate_track(uint sector, uint sectors_per_track);
 

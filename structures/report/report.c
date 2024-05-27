@@ -1,26 +1,22 @@
 #include "report.h"
 
-Report* create_report(uint amount) {
+void create_report(SchedulingAlgorithm algorithm, Disk disk, uint* sectors, uint requests_amount, Request current_request, char* filename) {
 
-	Report* report = (Report*) malloc(sizeof(Report));
+	Request* requests = create_requests(sectors, requests_amount, disk.sectors_per_track);
 
-	report->logs = (Log*) malloc(amount * sizeof(Log));
-	report->amount = amount;
+	Record* records = algorithm(disk, requests, requests_amount, current_request);
 
-	return report;
-}
-
-void write_report(Report* report, char* filename) {
+	free(requests);
 
 	FILE* report_file = fopen(filename, "w");
 
 	fprintf(report_file, "index,sector,track,seek,rotation,transfer,total\n");
 
-	for (uint index = 0; index < report->amount; index++) {
+	for (uint index = 0; index < requests_amount; index++) {
 
-		Log log = report->logs[index];
+		Record* record = &records[index];
 
-		fprintf(report_file, "%u,%u,%u,%.3f,%.3f,%.3f,%.3f\n",index, log.sector, log.track, log.seek_time, log.rotation_time, log.transfer_time, log.io_time);
+		fprintf(report_file, "%u,%u,%u,%.3f,%.3f,%.3f,%.3f\n",index, record->sector, record->track, record->seek_time, record->rotation_time, record->transfer_time, record->io_time);
 	}
 
 	fclose(report_file);

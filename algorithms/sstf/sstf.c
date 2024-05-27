@@ -1,6 +1,8 @@
 #include "sstf.h"
 
-void sstf(Request* requests, uint requests_amount, Request current_request, Disk disk, Report* report) {
+Record* sstf(Disk disk, Request* requests, uint requests_amount, Request current_request) {
+
+	Record* records = (Record*) malloc(requests_amount * sizeof(Record));
 
 	for (uint step = 0; step < requests_amount; step++) {
 
@@ -23,18 +25,20 @@ void sstf(Request* requests, uint requests_amount, Request current_request, Disk
 			}
 		}
 
-		Log* log = &report->logs[step];
+		Record* record = &records[step];
 
-		log->sector = requests[minimum_index].sector;
-		log->track = requests[minimum_index].track;
-		log->seek_time = calculate_seek_time(current_request.track, requests[minimum_index].track, disk.seek_time);
-		log->rotation_time = calculate_rotation_time(current_request.sector, requests[minimum_index].sector, disk.sectors_per_track, disk.rotation_time);
-		log->transfer_time = calculate_transfer_time(1, disk.sector_size, disk.transfer_rate);
-		log->io_time = log->seek_time + log->rotation_time + log->transfer_time;
+		record->sector = requests[minimum_index].sector;
+		record->track = requests[minimum_index].track;
+		record->seek_time = calculate_seek_time(current_request.track, requests[minimum_index].track, disk.seek_time);
+		record->rotation_time = calculate_rotation_time(current_request.sector, requests[minimum_index].sector, disk.sectors_per_track, disk.rotation_time);
+		record->transfer_time = calculate_transfer_time(1, disk.sector_size, disk.transfer_rate);
+		record->io_time = record->seek_time + record->rotation_time + record->transfer_time;
 
 		current_request.sector = requests[minimum_index].sector;
 		current_request.track = requests[minimum_index].track;
 
 		requests[minimum_index].served = True;
 	}
+
+	return records;
 }

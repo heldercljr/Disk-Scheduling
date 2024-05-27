@@ -1,6 +1,14 @@
 #include "disk.h"
 
-uint calculate_track(uint sector, uint sectors_per_track) {
+Disk create_disk(uint sector_size, uint tracks, uint sectors_per_track, double seek_time, double rotation_time, uint transfer_rate) {
+
+	Disk disk = { sector_size, tracks, sectors_per_track, seek_time, rotation_time, transfer_rate };
+
+	return disk;
+}
+
+uint calculate_track(uint sector, uint sectors_per_track)
+{
 
 	return sector / sectors_per_track;
 }
