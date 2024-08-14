@@ -7,8 +7,7 @@ Disk create_disk(uint sector_size, uint tracks, uint sectors_per_track, double s
 	return disk;
 }
 
-uint calculate_track(uint sector, uint sectors_per_track)
-{
+uint calculate_track(uint sector, uint sectors_per_track) {
 
 	return sector / sectors_per_track;
 }
